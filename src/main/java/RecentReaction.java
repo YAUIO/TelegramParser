@@ -1,5 +1,5 @@
 public class RecentReaction {
-    private String from;
-    private String from_id;
-    private String date;
+    String from;
+    String from_id;
+    String date;
 }

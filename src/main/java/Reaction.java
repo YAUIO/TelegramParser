@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class Reaction {
-    private String type;
-    private int count;
-    private String emoji;
-    private List<RecentReaction> recent;
+    String type;
+    int count;
+    String emoji;
+    List<RecentReaction> recent;
 }

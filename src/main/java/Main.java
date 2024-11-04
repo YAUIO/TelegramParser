@@ -18,5 +18,7 @@ public class Main {
 
         assert chat != null;
         System.out.println(chat.messages.size());
+
+        Parser gui = new Parser(chat);
     }
 }

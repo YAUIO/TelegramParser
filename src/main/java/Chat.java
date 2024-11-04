@@ -1,8 +1,8 @@
 import java.util.List;
 
 public class Chat {
-    private String name;
-    private String type;
-    private long id;
+    public String name;
+    public String type;
+    public long id;
     List<Message> messages;
 }
