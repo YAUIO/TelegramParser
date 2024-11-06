@@ -22,7 +22,6 @@ public class Image extends JLabel {
             img = ImageIO.read(new File(Main.path2file.substring(0, Main.path2file.lastIndexOf("\\") + 1) + path));
             img = rescaleImg(img,140,140);
             icon = new ImageIcon(img);
-            System.out.println("Read successful: " + path);
         } catch (IOException e) {
 
         }

@@ -17,7 +17,7 @@ public class JPList extends JPanel {
 
         DisplayPanels = messageList.size();
 
-        DisplayPanels = 1000;
+        DisplayPanels = 100;
 
         this.setLayout(new GridLayout(DisplayPanels, 1, 8, 8));
 
