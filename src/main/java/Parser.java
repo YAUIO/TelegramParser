@@ -2,11 +2,10 @@ import javax.swing.*;
 import java.awt.*;
 
 public class Parser extends Thread{
-    private JFrame window;
-    private JScrollPane mainPane;
-    private JList<GUIMessage> parsedLog;
-    private JMenuBar menu;
-    private Chat log;
+    public final JFrame window;
+    private final JPList parsedLog;
+    private final JMenuBar menu;
+    private final Chat log;
 
     Parser(Chat chat){
         window = new JFrame("TelegramParser by YAUIO");
@@ -17,27 +16,17 @@ public class Parser extends Thread{
 
         log = chat;
 
-        GUIMessage[] arr = new GUIMessage[log.messages.size()];
-        int i = 0;
-
-        for (Message m : log.messages){
-            arr[i] = new GUIMessage(m);
-            i++;
-        }
-
-        parsedLog = new JList<>(arr);
-
-        mainPane = new JScrollPane();
-
-        mainPane.setViewportView(parsedLog);
-
-        parsedLog.setLayoutOrientation(JList.VERTICAL);
+        parsedLog = new JPList(log.messages,this);
 
         menu = new JMenuBar();
 
         window.setJMenuBar(menu);
 
-        window.add(mainPane);
+        JScrollPane jsp = new JScrollPane(parsedLog);
+
+        jsp.getVerticalScrollBar().setUnitIncrement(24);
+
+        window.add(jsp);
 
         window.pack();
 

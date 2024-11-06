@@ -4,12 +4,15 @@ import java.io.FileReader;
 import java.io.IOException;
 
 public class Main {
+    static String path2file;
     public static void main(String[] args) {
+        path2file = "F:\\Users\\User\\Documents\\JavaProjects\\TelegramParser\\json\\result.json";
+
         Gson log = new Gson();
 
         Chat chat = null;
 
-        try (FileReader reader = new FileReader("F:\\Users\\User\\Documents\\JavaProjects\\TelegramParser\\result.json")) {
+        try (FileReader reader = new FileReader(path2file)) {
             // Parse JSON file into a Person object
             chat = log.fromJson(reader, Chat.class);
         } catch (IOException e) {
@@ -17,8 +20,8 @@ public class Main {
         }
 
         assert chat != null;
-        System.out.println(chat.messages.size());
+        System.out.println(chat.messages.size() + " messages parsed. Starting GUI");
 
-        Parser gui = new Parser(chat);
+        new Parser(chat);
     }
 }
