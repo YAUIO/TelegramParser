@@ -1,28 +1,20 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseWheelEvent;
-import java.awt.event.MouseWheelListener;
 import java.util.ArrayList;
 import java.util.List;
 
 public class JPList extends JPanel {
-    private final List<GUIMessage> messages;
-    private int DisplayPanels;
-    private final Parser parser;
+    public final List<GUIMessage> messages;
 
     JPList(List<Message> messageList, Parser parser) {
-        this.parser = parser;
-
         messages = new ArrayList<>();
 
-        DisplayPanels = messageList.size();
-
-        DisplayPanels = 100;
+        int DisplayPanels = messageList.size();
 
         this.setLayout(new GridLayout(DisplayPanels, 1, 8, 8));
 
         for (Message m : messageList) {
-            messages.add(new GUIMessage(m));
+            messages.add(new GUIMessage(m, parser, this));
         }
 
         for (int i = 0; i < DisplayPanels; i++){

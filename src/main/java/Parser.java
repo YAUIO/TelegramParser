@@ -1,11 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseWheelEvent;
 
 public class Parser extends Thread{
     public final JFrame window;
     private final JPList parsedLog;
     private final JMenuBar menu;
-    private final Chat log;
+    public final JScrollPane scrollPane;
+    public final Chat log;
 
     Parser(Chat chat){
         window = new JFrame("TelegramParser by YAUIO");
@@ -20,13 +24,17 @@ public class Parser extends Thread{
 
         menu = new JMenuBar();
 
+        Search search = new Search();
+
+        menu.add(search);
+
         window.setJMenuBar(menu);
 
-        JScrollPane jsp = new JScrollPane(parsedLog);
+        scrollPane = new JScrollPane(parsedLog);
 
-        jsp.getVerticalScrollBar().setUnitIncrement(24);
+        scrollPane.getVerticalScrollBar().setUnitIncrement(24);
 
-        window.add(jsp);
+        window.add(scrollPane);
 
         window.pack();
 
@@ -35,10 +43,38 @@ public class Parser extends Thread{
         this.start();
     }
 
+    public void goTo(int id){
+        scrollPane.getVerticalScrollBar().setValue((id-log.messages.getFirst().id)*168);
+    }
+
+    public void error(String title, String message){
+        JOptionPane.showMessageDialog(window, message,
+                title, JOptionPane.ERROR_MESSAGE);
+    }
+
+    public void error(String message){
+        JOptionPane.showMessageDialog(window, message,
+                "Error", JOptionPane.ERROR_MESSAGE);
+    }
+
     @Override
     public void run() {
         super.run();
 
         while (true);
+    }
+
+    public class Search extends JMenu {
+        Search(){
+            setText("Search");
+
+            addMouseListener(new MouseAdapter() {
+                @Override
+                public void mouseClicked(MouseEvent e) {
+                    super.mouseClicked(e);
+                    System.out.println(e.getButton());
+                }
+            });
+        }
     }
 }

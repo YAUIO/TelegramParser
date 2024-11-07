@@ -8,10 +8,12 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class Video extends JPanel {
-    private boolean isPlayed;
     private boolean isWindow;
+    private VideoPlayer player;
 
-    public Video (String path){
+    public Video (String path, Parser p){
+        player = null;
+
         EmbeddedMediaPlayerComponent mediaPlayerComponent = new EmbeddedMediaPlayerComponent();
         mediaPlayerComponent.setSize(140,140);
         mediaPlayerComponent.setPreferredSize(new Dimension(140,140));
@@ -20,29 +22,32 @@ public class Video extends JPanel {
         add(mediaPlayerComponent, BorderLayout.NORTH);
         add(new JLabel(path), BorderLayout.SOUTH);
 
-        isPlayed = false;
-
         setVisible(true);
+
+        final MediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
 
         addMouseListener(new MouseAdapter() {
             @Override
-            public void mouseClicked(MouseEvent e) {
-                System.out.println("gay");
+            public void mouseClicked(MouseEvent e) { //fix clickable area
                 super.mouseClicked(e);
                 if (e.getButton() == MouseEvent.BUTTON1){
-                    MediaPlayer mediaPlayer = mediaPlayerComponent.mediaPlayer();
-                    if (!isPlayed){
+
+                    if (!player.isDisplayable()) {
+                        player = null;
+                    }
+
+                    if (!mediaPlayer.status().isPlaying() && player == null){
                         mediaPlayer.media().play(Main.path2file.substring(0, Main.path2file.lastIndexOf("\\") + 1) + path);
-                        isPlayed = true;
+                    } else if (player != null){
+                        mediaPlayer.controls().pause();
+                        p.error("Close external window before playing internally");
                     } else {
                         mediaPlayer.controls().pause();
-                        isPlayed = false;
                     }
                 } else if (e.getButton() == MouseEvent.BUTTON2){
                     if (!isWindow) {
                         isWindow = true;
-                        VideoPlayer player = new VideoPlayer(path);
-                        isPlayed = true;
+                        player = new VideoPlayer(path);
                     }
                 }
             }

@@ -11,9 +11,13 @@ public class Message {
     String inviter;
     String from;
     String from_id;
+    String forwarded_from;
+    Integer reply_to_message_id;
     private Object text;
     List<TextEntity> text_entities;
     List<Reaction> reactions;
+    ContactInformation contact_information;
+    String photo;
     String file;
     String file_name;
     String media_type;

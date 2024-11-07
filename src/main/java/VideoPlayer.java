@@ -6,11 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 
 public class VideoPlayer extends JFrame {
-    private boolean isPlaying;
-
     VideoPlayer(String path) {
-        isPlaying = true;
-
         setName(path);
         Dimension size = new Dimension(1280, 720);
         setPreferredSize(size);
@@ -46,12 +42,10 @@ public class VideoPlayer extends JFrame {
                     case KeyEvent.VK_RIGHT -> mediaP.controls().skipTime(50);
                     case KeyEvent.VK_LEFT -> mediaP.controls().skipTime(50);
                     case KeyEvent.VK_SPACE -> {
-                        if (isPlaying) {
+                        if (mediaP.status().isPlaying()) {
                             mediaP.controls().pause();
-                            isPlaying = false;
                         } else {
                             mediaP.controls().play();
-                            isPlaying = true;
                         }
                     }
                     default -> {

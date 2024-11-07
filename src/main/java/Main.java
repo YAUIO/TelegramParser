@@ -5,8 +5,9 @@ import java.io.IOException;
 
 public class Main {
     static String path2file;
+
     public static void main(String[] args) {
-        path2file = "F:\\Users\\User\\Documents\\JavaProjects\\TelegramParser\\json\\result.json";
+        path2file = "F:\\Users\\User\\Documents\\JavaProjects\\TelegramParser\\newjson\\result.json";
 
         Gson log = new Gson();
 
